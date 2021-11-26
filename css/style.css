@@ -19,7 +19,7 @@
     height: 300px;
 }
 
-.image-container {
+.items {
     width: 100%;
     height: 100%;
 }
@@ -48,24 +48,24 @@
     color: white;
 }
 
-.image-collection {
+.thumbs {
     position: relative;
     height: 100%;
     background: #000;
 }
 
-.thumbnails {
+.thumb {
     height: calc((300px) / 5);
     opacity: 0.5;
 }
 
-.thumbnails img {
+.thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.thumbnails.active {
+.thumb.active {
     border: 2px solid #ccc;
     opacity: 1;
 }

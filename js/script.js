@@ -12,6 +12,7 @@ Al click dell’utente sulle frecce verso l’alto o verso il basso, l’immagin
 - testo.
 Allo stesso tempo nelle miniature l’immagine attiva dovrà apparire in evidenza rispetto alle altre.*/
 
+// Dati disponibili
 const items = [
     'img/01.jpg',
     'img/02.jpg',
@@ -36,3 +37,116 @@ const text = [
     'Et temporibus voluptatum suscipit tempore aliquid deleniti aut veniam inventore eligendi ex ad ullam,',
 ]
 
+//Seleziono elementi DOM
+const itemsContainer = document.querySelector('.slider .items');
+const thumbsContainer = document.querySelector('.slider .thumbs');
+
+for (let i = 0; i < items.length; i++) {
+
+    //Se sono al primo elemento aggiungo le classi "first" e "active"
+    let classElement = '';
+    if (i == 0) {
+        classElement = 'first active';
+    } else if (i == items.length - 1) { //Se sono nell'ultimo aggiungo la classe "last"
+        classElement = 'last';
+    }
+
+    const tag = 
+       `<div class="item ${classElement}">
+            <img src="${items[i]}" alt="">
+            <div class ="text">
+            <h3>${title[i]}</h3>
+            <p>${text[i]}</p>
+        </div>`;
+    const tagThumb = 
+       `<div class="thumb ${classElement}">
+             <img src="${items[i]}" alt="">
+        </div>`;
+
+    itemsContainer.innerHTML += tag;
+    thumbsContainer.innerHTML += tagThumb;
+}
+
+//Seleziono pulsante next e prev
+
+const buttonNext = document.querySelector('.slider .thumbs .next');
+const buttonPrev = document.querySelector('.slider .thumbs .prev');
+
+//Aggiugno funzione
+buttonNext.addEventListener('click',
+    function () {
+        //Cerco elemento con classe active
+        const elementActive = document.querySelector('.slider .items .item.active');
+        const thumbActive = document.querySelector('.slider .thumbs .thumb.active');
+
+        //Cerco in una lista una stringa
+        const listClasses = elementActive.classList; //['active', 'item', 'last']
+        let last = false;
+        for (let i = 0; i < listClasses.length; i++) {
+            //Ad ogni giro ho una stringa
+            if (listClasses[i] == 'last') {
+                last = true;
+            }
+        }
+
+        //"Contains" cerca una stringa all'interno di classlist e ci restituisce un valore booleano
+        let lastThumb = thumbActive.classList.contains('last');
+
+        //Questo elemento non e l'ultimo
+        //Se non trovo all'interno della lista di classi "last" allora vado avanti
+        if (last == false) { 
+            //Se non sono nell'ultimo rimuovo classe active
+            elementActive.classList.remove('active');
+            //Cerco elemento successivo a questo
+            const elementNext = elementActive.nextElementSibling;
+            //Aggiungo classe active
+            elementNext.classList.add('active');
+        }
+        //Altrimenti non faccio nulla
+        if (lastThumb == false) {
+            thumbActive.classList.remove('active');
+            const thumbNext = thumbActive.nextElementSibling;
+            thumbNext.classList.add('active');
+        }
+    }
+);
+
+//addEventListener dopo la prima
+buttonPrev.addEventListener('click',
+    function () {
+        //Vado a cercare elemento con classe "active"
+        const elementActive = document.querySelector('.slider .items .item.active');
+        const thumbActive = document.querySelector('.slider .thumbs .thumb.active');
+
+        //Cerco in una lista una stringa 
+        const listClasses = elementActive.classList; //['active', 'item', 'last']
+        let first = false;
+        for (let i = 0; i < listClasses.length; i++) {
+            //Ad ogni giro ho una stringa
+            if (listClasses[i] == 'first') {
+                first = true;
+            }
+        }
+
+        let firstThumb = thumbActive.classList.contains('first');
+
+
+        //Questo elemento non e l'ultimo
+        //Se non trovo all'interno della lista di classi "first" allora vado avanti
+        if (first == false) { 
+            //Se non sono nell'ultimo rimuovo classe active
+            elementActive.classList.remove('active');
+            //Cerco elemento successivo a questo
+            const elementPrev = elementActive.previousElementSibling;
+            //Aggiungo classe "active"
+            elementPrev.classList.add('active');
+        }
+
+        if (firstThumb == false) {
+            thumbActive.classList.remove('active');
+            const thumbPrev = thumbActive.previousElementSibling;
+            thumbPrev.classList.add('active');
+        }
+        //Altrimenti non faccio nulla
+    }
+);
