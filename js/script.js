@@ -36,25 +36,3 @@ const text = [
     'Et temporibus voluptatum suscipit tempore aliquid deleniti aut veniam inventore eligendi ex ad ullam,',
 ]
 
-const imagesContainer = document.querySelector('.slider .images-container');
-const imagesCollection = document.querySelector('.slider .images-collection');
-
-for (let i = 0; i < items.length; i++) {
-    let image = 
-    `<div class="img">
-        <img class="active" src="img/01.jpg" alt="">
-        <section class="caption">
-            <h1>Svezia</h1>
-            <p>Lorem ipsum<p>
-        </section>
-     </div>`;
-     imagesContainer.innerHTML += image;
-
-     let thumbnail = 
-     `<div class="thumbnails">
-        <img src="img/01.jpg" alt="">
-      </div>`;
-      imagesCollection.innerHTML += thumbnail;
-}
-
-
